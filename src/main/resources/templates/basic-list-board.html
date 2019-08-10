@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>게시글 리스트</title>
+</head>
+<body>
+<div th:switch="${boards}">
+    <h2>게시글</h2>
+    <h2 th:case="null">게시글이 없습니다.</h2>
+    <div th:case="*">
+        <table>
+            <thead>
+            <tr>
+                <th>작성자</th>
+                <th>제목</th>
+                <th>작성날짜</th>
+                <th>자세히보기</th>
+                <th>수정</th>
+                <th>삭제</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="board : ${boards}">
+                <td th:text="${board.title}"></td>
+                <td th:text="${board.author}"></td>
+                <td th:text="${#temporals.format(board.createDate, 'yyyy-MM-dd HH:MM')}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <p><a th:href="@{/board/write}">게시글 작성</a></p>
+</div>
+</body>
+</html>
